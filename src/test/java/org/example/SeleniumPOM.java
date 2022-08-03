@@ -1,21 +1,23 @@
 package org.example;
 
 import com.epam.pom.HomePage;
+import com.epam.pom.WebDriverElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.internal.WebElementToJsonConverter;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
 
 //WebDriver driver;
 /**
  * Unit test for simple App.
  */
-public class AppTest
+public class SeleniumPOM
 {
     /**
      * Rigorous Test :-)
@@ -27,7 +29,7 @@ public class AppTest
                 "C:\\Users\\Vishalakshi_A\\IdeaProjects\\chromedriver.exe");
         driver = new ChromeDriver();
     }
-    @Test
+   /* @Test
     public void testWithoutPOM()
     {
         //driver.manage().window().maximize();
@@ -41,13 +43,19 @@ public class AppTest
         //step-3
         WebElement webDriverElement=driver.findElement(By.xpath("//a[text()='WebDriver']"));
         webDriverElement.click();
-    }
+    }*/
     @Test
     public void testWithPOM()
     {
+        driver.get("https://www.selenium.dev/");
        String actualValue=  new HomePage(driver).clickOnDocumentationLink().verifyThatWeAreOnDocumentationPage();
         Assert.assertEquals(actualValue,"Documentation");
 
+    }
+
+    @AfterTest
+    public void tearDown() throws IOException {
+        new WebDriverElement().seleniumTakeScreenshot(driver);
     }
 
 }
